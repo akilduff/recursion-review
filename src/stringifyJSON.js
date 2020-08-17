@@ -7,6 +7,8 @@ var stringifyJSON = function(obj) {
   // your code goes here askdfjhaslkdjgheriughaSDHJHJHJAHSUH
 
   // declare result
+  let result = '';
+
   // check type of object
   // number - return stringified number
   // string - return string
@@ -16,7 +18,16 @@ var stringifyJSON = function(obj) {
 
   // arrays - '[' + recurse through array and keep returning result for each index + ']';
   // objects - '{' + recurse through object and keep returning result for each index '}']
+  if (typeof obj === 'number' ||
+      typeof obj === 'boolean' ||
+      typeof obj === 'null') {
+    result += obj.toString();
+  } else if (typeof obj === 'string') {
+    result += obj;
+  } else if (Array.isArray(obj)) {
 
+  }
 
+  return result;
 };
 
