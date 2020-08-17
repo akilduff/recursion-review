@@ -9,6 +9,14 @@ var stringifyJSON = function(obj) {
   // declare result
   let result = '';
 
+  // if object is empty, return '{}';
+  // if object is empty array (isArray and length === 0), return '[]'
+  if (obj === {}) {
+    return '{}';
+  } else if (Array.isArray(obj) && obj.length === 0) {
+    return '[]';
+  }
+
   // check type of object
   // number - return stringified number
   // string - return string
@@ -25,9 +33,22 @@ var stringifyJSON = function(obj) {
   } else if (typeof obj === 'string') {
     result += obj;
   } else if (Array.isArray(obj)) {
+    result += '[';
 
+    for (let i = 0; i < obj.length; i++) {
+      result += stringifyJSON(obj[i]);
+    }
+
+    result += ']';
+  } else if (typeof obj === 'object') {
+    result += '{';
+
+    for (let key in obj) {
+      result += `${key}:${obj[key]}`;
+    }
+
+    result += '}';
   }
-
   return result;
 };
 
