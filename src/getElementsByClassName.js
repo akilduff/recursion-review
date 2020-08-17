@@ -10,9 +10,10 @@ var getElementsByClassName = function(className
   var result = [];
 
   var traverseDOM = function(node, callback) {
+    console.log(`node: ${node}`);
     while (node) {
       var nodeList = node.childNodes;
-      if (nodeList[0]) {
+      if (nodeList[0] !== undefined) {
         traverseDOM(nodeList[0], callback);
       } else {
         return callback(node);
@@ -24,19 +25,19 @@ var getElementsByClassName = function(className
     //callback:
     // if the nodeList is empty, check if the className is what we want
     // if it IS what we want, push the NODE to our result array
-
-
   };
   //DOM traversal helper function
   // input: node, callback
   // output: a node that has no children, and has the specified class name
 
-  traverseDOM(document.body, function (element) {
+  var lookForClassName = function (element) {
     // if the node contains the classname push it into result
-    if (element.classList.includes(className)) {
+    if (element.classList[className]) {
       result.push(element);
     }
-  });
+  };
+
+  traverseDOM(document.body, lookForClassName);
 
   return result;
 };
