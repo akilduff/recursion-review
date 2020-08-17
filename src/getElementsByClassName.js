@@ -13,8 +13,9 @@ var getElementsByClassName = function(className
     while (node) {
       var nodeList = node.childNodes;
       if (nodeList[0]) {
-        callback(nodeList[0]);
-        traverseDOM();
+        traverseDOM(nodeList[0], callback);
+      } else {
+        return callback(node);
       }
     }
     // if the node has children
@@ -22,8 +23,7 @@ var getElementsByClassName = function(className
     //otherwise run the callback on the node and return
     //callback:
     // if the nodeList is empty, check if the className is what we want
-    //node.classList[0] === "className"
-    // if it IS what we want, push it to our result array
+    // if it IS what we want, push the NODE to our result array
 
 
   };
@@ -31,8 +31,11 @@ var getElementsByClassName = function(className
   // input: node, callback
   // output: a node that has no children, and has the specified class name
 
-  traveseDOM(element, function () {
-    // callback function here
+  traverseDOM(document.body, function (element) {
+    // if the node contains the classname push it into result
+    if (element.classList.includes(className)) {
+      result.push(element);
+    }
   });
 
   return result;
